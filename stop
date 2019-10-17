@@ -2,6 +2,6 @@
 
 pushd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null
 
-docker-compose up
+docker-compose down
 
 popd >/dev/null

@@ -10,3 +10,4 @@ services:
         - ./host_mnt/scripts:/scripts
         - ./host_mnt/opt:/opt
         - ./host_mnt/osrm_profiles:/usr/local/share/osrm/profiles
+      entrypoint: /scripts/entrypoint
