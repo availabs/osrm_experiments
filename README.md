@@ -44,3 +44,11 @@ Preprocess the OSM data.
 ### [run](run)
 
 Run a OSRM server. The default port is 5000 on the host. You can change this in [docker-compose.yml](docker-compose.yml).
+
+## OneWay Ways Routing Issue
+
+* [Improve Tie-Breaking on Phantom Node Snapping on Oneway Segments #2167](https://github.com/Project-OSRM/osrm-backend/issues/2167)
+* [Snapping to intersections incurs random turn penalty costs #4465](https://github.com/Project-OSRM/osrm-backend/issues/4465)
+* [Routing from exact node location #5073](https://github.com/Project-OSRM/osrm-backend/issues/5073#issuecomment-387753249)
+* [Processing-Flow](https://github.com/Project-OSRM/osrm-backend/wiki/Processing-Flow)
+
