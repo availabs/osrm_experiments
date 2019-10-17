@@ -2,7 +2,6 @@
 
 ## Instructions
 
-
 Provide the OSM file
 
 ```
@@ -32,6 +31,11 @@ This script copies the OSRM Lua scripts in the _/opt_ and _/usr/local/share/osrm
   the local _./host_mnt/opt_ and _./host_mnt/osrm_profiles_ directories, respectively.
 The [docker-compose.yml](docker-compose.yml) file then mounts these local directories back into the their original image directories.
 This allows the local modifications to the Lua scripts to be accessible within the running OSRM containers.
+
+Additionally, this script downloads the [wayids.lua](https://gist.github.com/ZsoltMedgyesi-Itineris/a50efd2a65456a6ec5ae72fd0a35d76d)
+  script into _./host_mnt/opt_, which is mounted as _/opt/_ in the Docker containers.
+  This Lua script replaces OSM Way names with IDs in the OSRM routing output.
+  See Project-OSRM/osrm-backend Issue [OSRM return way id instead of name #5202](https://github.com/Project-OSRM/osrm-backend/issues/5202#issuecomment-440580574) for details.
 
 ### [build](build)
 
