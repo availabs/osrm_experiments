@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# View each unique oneway tag value in the OSM PBF file
+
+ogr2ogr -f 'GeoJSON' /vsistdout/ /vsistdin/ lines < ./host_mnt/data/*.osm.pbf |
+  jq -c '.features[]' |
+  grep -io '\\"oneway\\"=>\\"[^"]*\\"' |
+  sort -u
