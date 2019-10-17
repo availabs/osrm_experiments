@@ -1,0 +1,12 @@
+version: '3'
+services:
+    osrm_router:
+      image: osrm/osrm-backend:latest
+      container_name: osrm_backend
+      ports:
+        - "5000:5000"
+      volumes:
+        - ./host_mnt/data:/data
+        - ./host_mnt/scripts:/scripts
+        - ./host_mnt/opt:/opt
+        - ./host_mnt/osrm_profiles:/usr/local/share/osrm/profiles

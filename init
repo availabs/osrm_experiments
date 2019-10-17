@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# This script copies the OSRM Lua scripts in the /opt and /usr/local/share/osrm/profiles directories
+#   of the osrm/osrm-backend:latest Docker image into the local directories ./host_mnt/opt and ./host_mnt/osrm_profiles, respectively.
+# The docker-compose.yml file then mounts these local directories back into the their original image directories.
+# This allows the local modifications to the Lua scripts to be accessible within the running OSRM containers.
+
+pushd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null
+
+if [[ -d ./host_mnt/opt ]] || [[ -d ./host_mnt/osrm_profiles ]] ; then 
+  echo "You must remove the host_mnt/opt and host_mnt/osrm_profiles directories before running this script."
+  exit 0
+fi
+
+CONTAINER_ID="$( docker run -d osrm/osrm-backend:latest )"
+
+docker cp --archive "$CONTAINER_ID":/opt ./host_mnt/opt
+docker cp --archive "$CONTAINER_ID":/usr/local/share/osrm/profiles ./host_mnt/osrm_profiles
+
+docker stop "$CONTAINER_ID" >/dev/null
+docker rm "$CONTAINER_ID" >/dev/null
+
+# Get Lua script that replaces OSM Way names with IDs in the OSRM routing output.
+# SEE https://github.com/Project-OSRM/osrm-backend/issues/5202#issuecomment-440580574
+curl --silent \
+  'https://gist.githubusercontent.com/ZsoltMedgyesi-Itineris/a50efd2a65456a6ec5ae72fd0a35d76d/raw/9c9f616d310c158193d981217fe2dddb33b5e57b/wayid.lua' \
+  > ./host_mnt/opt/wayid.lua
+
+popd >/dev/null
