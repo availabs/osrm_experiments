@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # USAGE: Pipe OSM as NDJSON in through STDIN, get routing analysis through STDOUT
+#   Example: zcat albany.ndjson.gz | ./runRoutingAnalysis
 
 set -e
 
