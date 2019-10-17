@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# USAGE: Pipe OSM as NDJSON in through STDIN, get routing analysis through STDOUT
+
+set -e
+
+jq -c '
+  select(
+    .properties.highway == (
+      "motorway",
+      "motorway_link",
+      "primary",
+      "primary_link",
+      "residential",
+      "secondary",
+      "secondary_link",
+      "tertiary",
+      "tertiary_link"
+    )
+  )' | ./routing.js
