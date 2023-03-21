@@ -9,7 +9,7 @@ pushd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null
 # Extract the graph out of the OSM basemap using the custom wayid.lua profile Lua script.
 #   This script replaces OSM Way names with IDs in the OSRM routing output.
 #   SEE https://github.com/Project-OSRM/osrm-backend/issues/5202#issuecomment-440580574
-docker-compose run --rm osrm_router bash -c "osrm-extract -p /opt/wayid.lua /data/*.osm.pbf"
+docker-compose run --rm osrm_router bash -c "osrm-extract -p /opt/avail-car-profile.lua /data/*.osm.pbf"
 
 # Partition (osrm-partition) this graph recursively into cells.
 docker-compose run --rm osrm_router bash -c "osrm-partition /data/*.osrm"

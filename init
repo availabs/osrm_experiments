@@ -20,10 +20,6 @@ docker cp --archive "$CONTAINER_ID":/usr/local/share/osrm/profiles ./host_mnt/os
 docker stop "$CONTAINER_ID" >/dev/null
 docker rm "$CONTAINER_ID" >/dev/null
 
-# Get Lua script that replaces OSM Way names with IDs in the OSRM routing output.
-# SEE https://github.com/Project-OSRM/osrm-backend/issues/5202#issuecomment-440580574
-curl --silent \
-  'https://gist.githubusercontent.com/ZsoltMedgyesi-Itineris/a50efd2a65456a6ec5ae72fd0a35d76d/raw/9c9f616d310c158193d981217fe2dddb33b5e57b/wayid.lua' \
-  > ./host_mnt/opt/wayid.lua
+cp ./avail-car-profile.lua ./host_mnt/opt/avail-car-profile.lua
 
 popd >/dev/null

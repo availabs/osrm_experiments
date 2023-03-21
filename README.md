@@ -16,6 +16,28 @@ Preprocess the OSM file.
 ./build
 ```
 
+Update the docker-compose.yml file. You may need to change the container_name
+and port if running more than one instance of this repo on a given host.
+
+```diff
+$ diff --git a/docker-compose.yml b/docker-compose.yml
+index 2a5a1ec..f86bee3 100644
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -2,9 +2,9 @@ version: '3'
+ services:
+     osrm_router:
+       image: osrm/osrm-backend:latest
+-      container_name: osrm_backend
++      container_name: osrm_backend_conflation_map_2021_v0_6_0
+       ports:
+-        - "5000:5000"
++        - "5001:5000"
+       volumes:
+         - ./host_mnt/data:/data
+         - ./host_mnt/scripts:/scripts
+```
+
 Run the OSRM server.
 
 ```
@@ -27,15 +49,15 @@ Run the OSRM server.
 ### [init](init)
 
 This script copies the OSRM Lua scripts in the _/opt_ and _/usr/local/share/osrm/profiles_ directories
-  of the [osrm/osrm-backend:latest](https://hub.docker.com/r/osrm/osrm-backend) Docker image into 
-  the local _./host_mnt/opt_ and _./host_mnt/osrm_profiles_ directories, respectively.
+of the [osrm/osrm-backend:latest](https://hub.docker.com/r/osrm/osrm-backend) Docker image into
+the local _./host_mnt/opt_ and _./host_mnt/osrm_profiles_ directories, respectively.
 The [docker-compose.yml](docker-compose.yml) file then mounts these local directories back into the their original image directories.
 This allows the local modifications to the Lua scripts to be accessible within the running OSRM containers.
 
 Additionally, this script downloads the [wayids.lua](https://gist.github.com/ZsoltMedgyesi-Itineris/a50efd2a65456a6ec5ae72fd0a35d76d)
-  script into _./host_mnt/opt_, which is mounted as _/opt/_ in the Docker containers.
-  This Lua script replaces OSM Way names with IDs in the OSRM routing output.
-  See Project-OSRM/osrm-backend Issue [OSRM return way id instead of name #5202](https://github.com/Project-OSRM/osrm-backend/issues/5202#issuecomment-440580574) for details.
+script into _./host_mnt/opt_, which is mounted as _/opt/_ in the Docker containers.
+This Lua script replaces OSM Way names with IDs in the OSRM routing output.
+See Project-OSRM/osrm-backend Issue [OSRM return way id instead of name #5202](https://github.com/Project-OSRM/osrm-backend/issues/5202#issuecomment-440580574) for details.
 
 ### [build](build)
 
@@ -51,8 +73,7 @@ Run a OSRM server. The default port is 5000 on the host. You can change this in 
 
 ## OneWay Ways Routing Issue
 
-* [Improve Tie-Breaking on Phantom Node Snapping on Oneway Segments #2167](https://github.com/Project-OSRM/osrm-backend/issues/2167)
-* [Snapping to intersections incurs random turn penalty costs #4465](https://github.com/Project-OSRM/osrm-backend/issues/4465)
-* [Routing from exact node location #5073](https://github.com/Project-OSRM/osrm-backend/issues/5073#issuecomment-387753249)
-* [Processing-Flow](https://github.com/Project-OSRM/osrm-backend/wiki/Processing-Flow)
-
+- [Improve Tie-Breaking on Phantom Node Snapping on Oneway Segments #2167](https://github.com/Project-OSRM/osrm-backend/issues/2167)
+- [Snapping to intersections incurs random turn penalty costs #4465](https://github.com/Project-OSRM/osrm-backend/issues/4465)
+- [Routing from exact node location #5073](https://github.com/Project-OSRM/osrm-backend/issues/5073#issuecomment-387753249)
+- [Processing-Flow](https://github.com/Project-OSRM/osrm-backend/wiki/Processing-Flow)
