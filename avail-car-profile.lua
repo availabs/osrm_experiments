@@ -395,6 +395,10 @@ function process_way(profile, way, result, relations)
     return
   end
 
+  -- https://github.com/Project-OSRM/osrm-backend/issues/5202#issuecomment-440580574
+  -- https://gist.github.com/ZsoltMedgyesi-Itineris/a50efd2a65456a6ec5ae72fd0a35d76d#file-wayid-lua-L378
+  result.name = way:id()
+
   handlers = Sequence {
     -- set the default mode for this profile. if can be changed later
     -- in case it turns we're e.g. on a ferry
@@ -449,7 +453,9 @@ function process_way(profile, way, result, relations)
     WayHandlers.driving_side,
 
     -- set name, ref and pronunciation
-    WayHandlers.names,
+    -- https://github.com/Project-OSRM/osrm-backend/issues/5202#issuecomment-440580574
+    -- https://gist.github.com/ZsoltMedgyesi-Itineris/a50efd2a65456a6ec5ae72fd0a35d76d#file-wayid-lua-L432
+    -- WayHandlers.names,
 
     -- set weight properties of the way
     WayHandlers.weights,

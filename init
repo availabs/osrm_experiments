@@ -20,6 +20,7 @@ docker cp --archive "$CONTAINER_ID":/usr/local/share/osrm/profiles ./host_mnt/os
 docker stop "$CONTAINER_ID" >/dev/null
 docker rm "$CONTAINER_ID" >/dev/null
 
+# https://github.com/Project-OSRM/osrm-backend/issues/5202#issuecomment-440580574
 cp ./avail-car-profile.lua ./host_mnt/opt/avail-car-profile.lua
 
 popd >/dev/null
